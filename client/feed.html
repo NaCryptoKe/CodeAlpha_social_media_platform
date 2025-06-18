@@ -1,0 +1,96 @@
+<!-- social-media-app/client/feed.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Feed</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* Basic styling for demonstration if not in style.css */
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .nav-links button { /* Example for navigation button */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 20px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-links button:hover {
+            background-color: #575757;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>LOOP Feed</h1>
+        <div class="nav-links">
+            <button id="profileNavLink">Profile</button> <!-- ADD THIS ID -->
+            <button id="logoutNavLink">Logout</button> <!-- Optional: direct logout button -->
+        </div>
+    </nav>
+
+    <main>
+        <h2>Welcome to your feed!</h2>
+        <p>This is where posts from people you follow will appear.</p>
+        <!-- Your feed content goes here -->
+    </main>
+
+    <!-- Link your main auth.js for logout function if used directly -->
+    <script src="/js/auth.js"></script>
+
+    <!-- New script for feed-specific navigation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const profileNavLink = document.getElementById('profileNavLink');
+            const logoutNavLink = document.getElementById('logoutNavLink'); // Assuming you want a logout button here too
+
+            if (profileNavLink) {
+                profileNavLink.addEventListener('click', () => {
+                    window.location.href = '/profile.html'; // Redirect to the profile page
+                });
+            }
+
+            if (logoutNavLink) {
+                logoutNavLink.addEventListener('click', () => {
+                    // Call the logout function from auth.js (make it global or import)
+                    // If logoutUser is in auth.js, you need to make it accessible like window.logoutUser
+                    if (typeof logoutUser === 'function') {
+                        logoutUser();
+                    } else {
+                        console.error("logoutUser function not found. Make sure it's globally accessible or imported.");
+                        // Fallback if logoutUser isn't global
+                        sessionStorage.clear();
+                        window.location.href = '/login.html';
+                    }
+                });
+            }
+
+            // Basic check if user is logged in on feed page (optional but good practice)
+            if (!sessionStorage.getItem('authToken')) {
+                alert('You are not logged in. Redirecting to login page.');
+                window.location.href = '/login.html';
+            }
+        });
+    </script>
+</body>
+</html>

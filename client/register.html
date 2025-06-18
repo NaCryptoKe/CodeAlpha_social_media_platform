@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Link your stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <form id="register-form">
+        <h2>Create Account</h2>
+
+        <div class="input-group">
+            <label for="register-username">Username</label>
+            <input
+                type="text"
+                id="register-username"
+                name="username"
+                placeholder="Choose a username"
+                required
+            />
+        </div>
+
+        <div class="input-group">
+            <label for="register-email">Email</label>
+            <input
+                type="email"
+                id="register-email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            />
+        </div>
+
+        <div class="input-group">
+            <label for="register-first-name">First Name</label>
+            <input
+                type="text"
+                id="register-first-name"
+                name="first_name"
+                placeholder="Your first name"
+                required
+            />
+        </div>
+
+        <div class="input-group">
+            <label for="register-last-name">Last Name</label>
+            <input
+                type="text"
+                id="register-last-name"
+                name="last_name"
+                placeholder="Your last name (optional)"
+            />
+        </div>
+
+        <div class="input-group">
+            <label for="register-password">Password</label>
+            <input
+                type="password"
+                id="register-password"
+                name="password"
+                placeholder="Create a password"
+                required
+            />
+        </div>
+
+        <div class="input-group">
+            <label for="register-confirm-password">Confirm Password</label>
+            <input
+                type="password"
+                id="register-confirm-password"
+                name="confirm_password"
+                placeholder="Confirm your password"
+                required
+            />
+        </div>
+
+        <div id="submit-div">
+            <button type="submit">Register Account</button>
+        </div>
+
+        <div class="link-group">
+            <p>Already have an account? <a href="/login.html">Log In</a></p>
+        </div>
+    </form>
+
+    <!-- Your auth.js will handle the form submission -->
+    <script src="/js/auth.js"></script>
+</body>
+</html>

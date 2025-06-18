@@ -6,6 +6,48 @@
     <title>Login</title>
 </head>
 <body>
-    
+    <form action="/login" id="login-form" method="post">
+        <div id="username-div" class="input-group">
+            <label for="username">Username</label>
+            <input 
+                type="text" 
+                name="username" 
+                id="username"
+                placeholder="Username"
+                required
+            />
+        </div>
+
+        <div class="password-div" class="input-group">
+            <label for="password">Password</label>
+            <input 
+                type="text" 
+                name="password" 
+                id="password"
+                placeholder="Password"
+                required
+            />
+        </div>
+
+        <div id="remember-me-div" class="checkbox-group">
+            <input type="checkbox" name="remember-me" id="remember-me">
+            <label for="remember-me">Remember Me</label>
+        </div>
+
+        <div id="submit-div">
+            <button type="submit">Log In</button>
+        </div>
+
+        <div id="forgot-password-div" class="link-group">
+            <a href="/forgot-password">Forgot Password?</a>
+        </div>
+
+        <div id="sign-up-div" class="link-group">
+            <a href="/register.html">Sign Up</a>
+        </div>
+
+    </form>
+
+    <script src="js/auth.js"></script>
 </body>
 </html>
