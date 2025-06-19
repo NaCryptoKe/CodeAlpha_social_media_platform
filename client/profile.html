@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>LOOP</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav>
@@ -14,64 +14,45 @@
     <main>
         <div class="profile-info">
             <div class="profile_pic">
-                <img src="" alt="profile_picture" />
+                <img src="" alt="profile-picture-image"/>
             </div>
             <div class="info">
-                <h1>@username</h1>
-                <h2>Full Name</h2>
-                <h3>BIO</h3>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Impedit, consectetur corrupti minus, doloribus officiis
-                    vitae quidem corporis atque earum rem ad perspiciatis
-                    voluptas necessitatibus maiores voluptate nisi repellat.
-                    Quisquam, quo?
-                </p>
+                <h1 id="profile-username">@username</h1>
+                <h2 id="profile-full-name">Full Name</h2>
+                <h3 id="profile-bio-label">BIO</h3>
+                <p id="profile-bio">Loding bio ...</p>
                 <div class="metrics">
                     <div class="metric">
-                        <span class="count">23</span>
+                        <span id="post-count">0</span>
                         <span class="label">Posts</span>
                     </div>
                     <div class="metric">
-                        <span class="count">24M</span>
+                        <span id="followers-count">0</span>
                         <span class="label">Followers</span>
                     </div>
                     <div class="metric">
-                        <span class="count">12K</span>
+                        <span id="following-count">0</span>
                         <span class="label">Following</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="posts">
-            <div class="post">
-                <img src="../server/uploads/postImages/cr7.webp" alt="">
-            </div>
-            <div class="post">
-                <img src="../server/uploads/postImages/cr7.webp" alt="">
-            </div>
-            <div class="post">
-                <img src="../server/uploads/postImages/cr.jpg" alt="">
-            </div>
-            <div class="post">
-                <img src="../server/uploads/postImages/cr7.webp" alt="">
-            </div>
-            <div class="post">
-                <img src="../server/uploads/postImages/cr7.webp" alt="">
-            </div>
+        <div id="user-posts-container" class="posts">
+            <p>No posts to display yet.</p>
         </div>
     </main>
 
-    <button id="msgBtn" title="Message">💬</button>
-
-    <button id="settingsBtn" title="Settings">⚙️</button>
+    <div class="floating-buttons">
+        <button id="msgBtn" title="Message">💬</button>
+        <button id="settingsBtn" title="Settings">⚙️</button>
+    </div>
 
     <div class="footer">
         <h4>© LOOP from LOOP</h4>
     </div>
 
     <script src="./js/auth.js"></script>
-    <script src="js/setting.js"></script>
+    <script src="./js/profile.js"></script>
 </body>
 </html>

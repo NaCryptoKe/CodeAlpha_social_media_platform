@@ -4,8 +4,6 @@ const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
-    console.log('Server current time:', new Date().toLocaleString());
-
     if (token == null) {
         console.warn('Authentication token missing from request.');
         return res.status(401).json({message: 'Authentication token required.'});

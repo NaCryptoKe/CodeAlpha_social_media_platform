@@ -64,7 +64,7 @@ if (registerForm) {
         const password = document.getElementById('register-password').value;
         const firstName = document.getElementById('register-first-name').value;
         const lastName = document.getElementById('register-last-name').value;
-        const profilePicture = document.getElementById('register-profile-pic').value; // Or handle file upload
+        const profilePicture = document.getElementById('register-last-name').value; // Or handle file upload
 
         try {
             const res = await fetch('http://localhost:3000/auth/register', {
