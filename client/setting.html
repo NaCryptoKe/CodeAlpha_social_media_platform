@@ -4,24 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
-    <!-- Link your stylesheet -->
     <link rel="stylesheet" href="/style.css">
-    </head>
+</head>
 <body>
-    <div class="settings-container">
-        <h2>Settings</h2>
+    <nav>
+        <h1>Settings</h1>
+        <div class="nav-links">
+            <button id="profileNavLink">Profile</button>
+            <button id="feedNavLink">Feed</button>
+        </div>
+    </nav>
 
-        <!-- Example settings options can go here -->
-        <button class="settings-button">Edit Profile</button>
-        <button class="settings-button">Change Password</button>
-        <button class="settings-button">Privacy Settings</button>
+    <main>
+        <div class="settings-container">
+            <h2>Account Settings</h2>
 
-        <button id="logout-button" class="settings-button">Logout</button>
+            <hr>
 
-        <a href="/profile.html" class="back-link">← Back to Profile</a>
-    </div>
+            <h3>Edit Profile</h3>
+            <form id="profileUpdateForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Current/New Profile Picture Preview:</label>
+                    <img id="profilePicPreview" src="https://placehold.co/150x150/cccccc/333333?text=Preview" alt="Profile Picture Preview">
+                </div>
+                <div class="form-group">
+                    <label for="usernameInput">Username:</label>
+                    <input type="text" id="usernameInput" placeholder="Enter new username">
+                </div>
+                <div class="form-group">
+                    <label for="bioInput">Bio:</label>
+                    <textarea id="bioInput" placeholder="Tell us about yourself..." rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="profilePicInput">Change Profile Picture:</label>
+                    <input type="file" id="profilePicInput" accept="image/*">
+                </div>
+                <button type="submit" class="submit-button">Save Changes</button>
+                <p id="profileMessage" class="message"></p>
+            </form>
 
-    <!-- Your auth.js will handle the logout function -->
+            <hr>
+
+            <h3>Security</h3>
+            <button class="action-button" disabled>Change Password (Coming Soon)</button>
+
+            <hr>
+
+            <h3>Session</h3>
+            <button id="logoutButton" class="action-button logout-button">Logout</button>
+            <p id="logoutMessage" class="message"></p>
+        </div>
+    </main>
+
     <script src="/js/auth.js"></script>
+    <script src="/js/setting.js"></script>
+
 </body>
 </html>

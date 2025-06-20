@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LOOP</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <nav>
-        <h1>LOOP</h1>
+        <h1>Your Profile</h1>
+
+        <div class="search-container">
+            <input type="text" id="userSearchInput" placeholder="Search for users...">
+            <button id="searchButton">Search</button>
+        </div>
+
+        <div id="searchResultsContainer" class="search-results-container"></div>
+
+        <div class="nav-links">
+            <button id="feedNavLink">Feed</button>
+        </div>
     </nav>
 
     <main>
-        <div class="profile-info">
-            <div class="profile_pic">
-                <img src="" alt="profile-picture-image"/>
+        <div class="profile-container">
+            <h2>Profile Details</h2>
+            <div class="profile-header">
+                <img id="profilePicDisplay" src="https://placehold.co/150x150/cccccc/333333?text=User" alt="Profile Picture" class="profile-pic-large">
+                <h3 id="usernameDisplay">Loading User...</h3>
+                <p id="bioDisplay">Loading Bio...</p>
             </div>
-            <div class="info">
-                <h1 id="profile-username">@username</h1>
-                <h2 id="profile-full-name">Full Name</h2>
-                <h3 id="profile-bio-label">BIO</h3>
-                <p id="profile-bio">Loding bio ...</p>
-                <div class="metrics">
-                    <div class="metric">
-                        <span id="post-count">0</span>
-                        <span class="label">Posts</span>
-                    </div>
-                    <div class="metric">
-                        <span id="followers-count">0</span>
-                        <span class="label">Followers</span>
-                    </div>
-                    <div class="metric">
-                        <span id="following-count">0</span>
-                        <span class="label">Following</span>
-                    </div>
+
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span id="postCount" class="stat-value">0</span>
+                    <span class="stat-label">Posts</span>
+                </div>
+                <div class="stat-item">
+                    <span id="followerCount" class="stat-value">0</span>
+                    <span class="stat-label">Followers</span>
+                </div>
+                <div class="stat-item">
+                    <span id="followingCount" class="stat-value">0</span>
+                    <span class="stat-label">Following</span>
                 </div>
             </div>
-        </div>
+            <hr>
 
-        <div id="user-posts-container" class="posts">
-            <p>No posts to display yet.</p>
+            <h3>Your Posts</h3>
+            <div class="user-posts-container">
+                <p class="loading-posts">Loading your posts...</p>
+            </div>
         </div>
     </main>
 
-    <div class="floating-buttons">
-        <button id="msgBtn" title="Message">💬</button>
-        <button id="settingsBtn" title="Settings">⚙️</button>
+    <div class="profile-floating-buttons">
+        <button id="settingsButton" class="floating-action-button">⚙️</button>
+        <button id="dmButton" class="floating-action-button">✉️</button>
     </div>
 
-    <div class="footer">
-        <h4>© LOOP from LOOP</h4>
-    </div>
+    <script src="/js/auth.js"></script>
+    <script src="/js/profile.js"></script>
 
-    <script src="./js/auth.js"></script>
-    <script src="./js/profile.js"></script>
 </body>
 </html>

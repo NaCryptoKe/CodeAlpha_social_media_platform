@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Post</title>
+    <link rel="stylesheet" href="/style.css"> </head>
+<body>
+    <nav>
+        <h1>Create Post</h1>
+        <div class="nav-links">
+            <button id="backToFeedNavLink">Back to Feed</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="create-post-container">
+            <h2>What's on your mind?</h2>
+            <form id="createPostForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="postContent">Post Content (Text):</label>
+                    <textarea id="postContent" placeholder="Share your thoughts..." rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>New Post Preview:</label>
+                    <img id="postImagePreview" src="https://placehold.co/150x150/cccccc/333333?text=Preview" alt="Profile Picture Preview">
+                </div>
+                <div class="form-group">
+                    <label for="postImage">Upload Image:</label>
+                    <input type="file" id="postImage" accept="image/*">
+                </div>
+                <button type="submit" class="submit-button">Post</button>
+                <p id="postMessage" class="message"></p>
+            </form>
+        </div>
+    </main>
+
+    <script src="/js/auth.js"></script> 
+    <script src="/js/createPost.js"></script> </body>
+</html>

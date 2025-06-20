@@ -1,176 +1,1288 @@
-/* Global resets and font */
-* {
+/* client/style.css */
+
+/* --- General Body and Layout Styles --- */
+body {
+    font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-body {
-    background-color: #fafafa;
-    min-height: 100vh;
-    padding: 2em;
-    color: #262626;
-}
-
-nav {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-weight: 700;
-    font-size: 1.8rem;
-    letter-spacing: 0.15em;
-    color: #262626;
-    border-bottom: 1px solid #dbdbdb;
-    padding-bottom: 1rem;
-}
-
-.profile-info {
-    display: flex;
-    max-width: 900px;
-    margin: 0 auto 3rem auto;
-    gap: 2.5rem;
-    align-items: center;
-    justify-content: center;
-}
-
-.profile_pic img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #dbdbdb;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.info {
-    flex: 0.5;
-}
-
-.info h1 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-}
-
-.info h2 {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #8e8e8e;
-    margin-bottom: 1rem;
-}
-
-.info h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.info p {
-    font-size: 0.7rem;
-    font-style: italic;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
-    color: #000;
-}
-
-/* Metrics section */
-.metrics {
-    display: flex;
-    gap: 3rem;
-    justify-content: center;
-}
-
-.metric {
+    line-height: 1.6;
+    color: #333;
+    /* Default background for feed/profile, etc. */
+    background-color: #f0f2f5;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Specific body style for login/register pages */
+/* Since login.html and register.html link to style.css,
+   we'll use a class on their body tag or target the form directly.
+   Let's target the form directly and rely on body being a flex container. */
+body.auth-page { /* Add this class to your <body> tag in login.html and register.html */
+    background: linear-gradient(135deg, #6dd5ed, #2193b0); /* Nice blue gradient for auth pages */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+}
+
+/* --- Navigation Bar Styles (for Feed, Profile, Settings) --- */
+nav {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.metric .count {
-    font-weight: 1000;
-    font-size: 1rem;
-    color: #262626;
+nav h1 {
+    margin: 0;
+    color: #007bff;
+    font-size: 1.8em;
 }
 
-.metric .label {
-    font-size: .6rem;
-    color: #8e8e8e;
-    letter-spacing: 0.05em;
-    margin-top: 0.2rem;
-    text-transform: uppercase;
+.nav-links button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Posts grid */
-.posts {
-    max-width: 900px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    overflow: hidden;
+.nav-links button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
 }
 
-.post {
-    width: 100%;
-    aspect-ratio: 9 / 16;
-    overflow: hidden;
+/* --- Main Content Area Styles (for Feed, Profile, Settings) --- */
+main {
+    flex-grow: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.08);
+}
+
+.feed-container h2 {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+/* --- Post Layout: Two Columns --- */
+.feed-post {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #e0e0e0;
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    background-color: #eee; /* fallback */
+    margin-bottom: 25px;
+    background-color: #fcfcfc;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
 }
 
-.post img {
+.post-media-and-content {
+    flex: 2;
+    min-width: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Image container: No fixed height, let image define it, show whole image */
+.post-media-and-content .feed-post-image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 300px; /* Height determined by image's aspect ratio */
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex; /* Use flex to center image if it doesn't fill entirely */
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5; /* Light background for empty space/letterboxing */
+}
+
+/* Image itself: Contain fully within its container */
+.post-media-and-content .feed-post-image img {
+    width: 100%;
+    height: 100%; /* Maintain aspect ratio */
+    object-fit: contain; /* Show entire image, no cropping */
     display: block;
 }
 
-/* Floating message button */
-#msgBtn {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background-color: #3897f0;
+.post-media-and-content .feed-post-header {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 0 5px;
+}
+
+.post-media-and-content .feed-post-header img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
+    border: 2px solid #007bff;
+}
+
+.post-media-and-content .feed-post-header .username {
+    font-weight: 600;
+    color: #007bff;
+    font-size: 1.2em;
+}
+
+.post-media-and-content .feed-post-text {
+    padding: 0 5px;
+    font-size: 1em;
+    color: #444;
+    margin-bottom: 15px;
+}
+.post-media-and-content .feed-post-meta {
+    font-size: 0.85em;
+    color: #888;
+    padding: 0 5px;
+}
+
+
+/* Right Column: Interactions and Comments */
+.post-interactions-and-comments {
+    flex: 1;
+    min-width: 320px;
+    background-color: #ffffff;
+    border-left: 1px solid #eee;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.top-interaction-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+/* Buttons: Horizontal Layout */
+.interaction-buttons {
+    display: flex;
+    flex-direction: row; /* Buttons arranged horizontally */
+    gap: 15px;
+    margin-top: 15px;
+    justify-content: center; /* Center buttons horizontally */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.interaction-button {
+    background-color: #f0f2f5;
+    color: #555;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    min-width: 100px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.interaction-button:hover {
+    background-color: #e0e2e5;
+    transform: translateY(-1px);
+}
+
+.interaction-button .icon {
+    font-size: 1.2em;
+}
+
+.interaction-button.like-button .heart-icon {
+    color: #555;
+}
+
+.interaction-button.like-button.liked .heart-icon {
+    color: red;
+}
+
+.interaction-button.save-button .icon { color: #007bff; }
+.interaction-button.share-button .icon { color: #28a745; }
+
+
+.comment-stats {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Comments List */
+.comments-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 400px;
+    padding-right: 10px;
+}
+
+.comment-item {
+    background-color: #f7f7f7;
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    line-height: 1.4;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.comment-item .comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.comment-item .comment-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 8px;
+    object-fit: cover;
+}
+
+.comment-item .comment-author {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1em;
+}
+
+.comment-item .comment-content {
+    color: #444;
+    margin-left: 38px;
+    display: block;
+}
+
+.comment-item .comment-date {
+    font-size: 0.75em;
+    color: #888;
+    margin-left: 38px;
+    margin-top: 5px;
+    display: block;
+}
+
+
+/* Comment Input Area */
+.comment-input-area {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: #ffffff;
+    padding-bottom: 5px;
+}
+
+.comment-input-area img.current-user-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.comment-input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 1em;
+    resize: none;
+    min-height: 40px;
+    max-height: 100px;
+    overflow-y: auto;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.comment-submit-button {
+    background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    font-size: 1.8rem;
+    padding: 10px 20px;
+    border-radius: 20px;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(56, 151, 240, 0.6);
-    transition: background-color 0.3s ease;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-#msgBtn:hover {
-    background-color: #2a6fbd;
+.comment-submit-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
 }
 
-#settingsBtn {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    background-color: white;
-    border: none;
-    padding: 0.7rem 0.9rem;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    cursor: pointer;
-    z-index: 999;
-    transition: background 0.2s;
+/* --- Responsive Adjustments --- */
+@media (max-width: 850px) {
+    .feed-post {
+        flex-direction: column;
+    }
+
+    .post-media-and-content {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+        min-width: unset;
+    }
+
+    .post-interactions-and-comments {
+        border-left: none;
+        width: 100%;
+        min-width: unset;
+    }
 }
 
-#settingsBtn:hover {
-    background-color: #f0f0f0;
+@media (max-width: 500px) {
+    main {
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    nav {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    nav .nav-links {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .interaction-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .interaction-button {
+        width: calc(50% - 10px);
+        margin-bottom: 10px;
+    }
+
+    .comment-item {
+        padding: 8px 12px;
+    }
 }
 
-
-.footer {
+/* Utility classes for messages */
+.message {
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 0.9em;
     text-align: center;
-    margin-top: 4rem;
-    padding: 1rem 0;
-    color: #8e8e8e;
-    font-size: 0.9rem;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.loading-comments, .no-comments, .error-comments {
+    font-style: italic;
+    color: #777;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+/* --- Styles for Login/Register Forms --- */
+/* Target the body for auth pages to apply gradient background */
+body.auth-page {
+    background: linear-gradient(135deg, #6dd5ed, #2193b0); /* Blue gradient */
+    display: flex; /* Ensure flex for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default body margin */
+}
+
+/* Form Container */
+/* These styles will apply to any <form> tag on a page with body.auth-page */
+form {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px; /* Max width for forms */
+    box-sizing: border-box; /* Include padding in width */
+    text-align: center; /* Center form content like h2 and paragraphs */
+    /* Remove any conflicting 'main' specific flex-grow if this form is not within 'main' */
+    flex-grow: 0; /* Important: Prevents form from expanding unexpectedly */
+}
+
+form h2 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+/* Input Group Styles */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.input-group input[type="text"],
+.input-group input[type="password"],
+.input-group input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="password"]:focus,
+.input-group input[type="email"]:focus {
+    border-color: #2193b0;
+    outline: none;
+    box-shadow: 0 0 5px rgba(33, 147, 176, 0.3);
+}
+
+/* Checkbox Group Styles (for Remember Me) */
+.checkbox-group {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95em;
+    color: #555;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.1);
+}
+
+/* Submit Button Styles */
+#submit-div button {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #2193b0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+#submit-div button:hover {
+    background-color: #1a7c93;
+    transform: translateY(-2px);
+}
+
+#submit-div button:active {
+    transform: translateY(0);
+}
+
+/* Link Group Styles */
+.link-group {
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+.link-group a {
+    color: #2193b0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.link-group a:hover {
+    color: #1a7c93;
+    text-decoration: underline;
+}
+
+.link-group p {
+    margin: 0;
+    color: #555;
+}
+
+
+/* Basic responsiveness for forms */
+@media (max-width: 600px) {
+    form {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+    form h2 {
+        font-size: 1.8em;
+    }
+    .input-group input {
+        padding: 10px 12px;
+    }
+    #submit-div button {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+}
+
+/* --- Styles for User Profile Page --- */
+.profile-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.08);
+    max-width: 800px; /* Max width for profile content */
+    margin: 30px auto; /* Center the profile container */
+    text-align: center; /* Center content within the container */
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items horizontally */
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-pic-large {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover; /* Cover the area, cropping if necessary */
+    border: 4px solid #007bff; /* Blue border for profile pic */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+
+.profile-header h3 {
+    margin: 10px 0 5px;
+    color: #333;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+.profile-header p {
+    color: #666;
+    font-size: 1.1em;
+    line-height: 1.5;
+    max-width: 600px; /* Limit bio width */
+    margin-bottom: 20px;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    gap: 20px; /* Space between buttons */
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+
+.action-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex; /* Allow icon and text to align */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.action-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Horizontal Rule Styling */
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #eee;
+    margin: 30px 0;
+}
+
+.user-posts-container {
+    margin-top: 30px;
+    text-align: left; /* Align posts to the left */
+}
+
+.user-posts-container p {
+    font-style: italic;
+    color: #777;
+    text-align: center;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .profile-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .profile-pic-large {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-header h3 {
+        font-size: 1.8em;
+    }
+
+    .profile-header p {
+        font-size: 1em;
+    }
+
+    .profile-actions {
+        flex-direction: column; /* Stack buttons vertically on small screens */
+        gap: 15px;
+    }
+
+    .action-button {
+        width: 100%; /* Full width for stacked buttons */
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
+
+/* --- Floating Action Buttons (Profile Page) --- */
+.profile-floating-buttons {
+    position: fixed;
+    bottom: 30px; /* Distance from bottom */
+    right: 30px; /* Distance from right */
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 15px; /* Space between buttons */
+    z-index: 1000; /* Ensure they are above other content */
+}
+
+.floating-action-button {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White emoji color */
+    border: none;
+    border-radius: 50%; /* Make it circular */
+    width: 60px; /* Size of the button */
+    height: 60px; /* Size of the button */
+    display: flex;
+    justify-content: center; /* Center emoji horizontally */
+    align-items: center; /* Center emoji vertically */
+    font-size: 1.8em; /* Size of the emoji */
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25); /* Stronger shadow for floating effect */
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.floating-action-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-3px); /* Lift effect */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.floating-action-button:active {
+    transform: translateY(0); /* Press effect */
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustment for floating buttons */
+@media (max-width: 768px) {
+    .profile-floating-buttons {
+        bottom: 20px;
+        right: 20px;
+        gap: 10px;
+    }
+    .floating-action-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+    }
+}
+
+/* --- Styles for Create Post Page (add these to client/style.css) --- */
+
+.create-post-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.08);
+    max-width: 700px; /* Max width for the create post form */
+    margin: 30px auto; /* Center the container */
+    text-align: center; /* Center form elements horizontally */
+}
+
+.create-post-container h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+/* Form Grouping for labels and inputs */
+.create-post-container .form-group {
+    margin-bottom: 20px;
+    text-align: left; /* Align labels and inputs to the left within their group */
+}
+
+.create-post-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+    font-size: 1.05em;
+}
+
+.create-post-container textarea#postContent {
+    width: calc(100% - 24px); /* Full width minus padding */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding in width calculation */
+    resize: vertical; /* Allow vertical resizing only */
+    min-height: 100px;
+    max-height: 300px; /* Prevent excessive height */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Inter', sans-serif; /* Match body font */
+}
+
+.create-post-container textarea#postContent:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Image preview styles */
+#postImagePreview {
+    display: block; /* To center it with margin auto */
+    max-width: 250px; /* Limit preview size */
+    max-height: 250px;
+    width: auto; /* Allow natural width */
+    height: auto; /* Allow natural height */
+    object-fit: contain; /* Ensure the whole image is visible */
+    margin: 15px auto; /* Center the image */
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* File input styling (can be tricky to style consistently across browsers) */
+.create-post-container input[type="file"] {
+    width: 100%;
+    padding: 10px 0; /* Add vertical padding */
+    border: 1px solid #ddd; /* Match other inputs */
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #555;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.create-post-container input[type="file"]::-webkit-file-upload-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.create-post-container input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the submit button specifically for create post form */
+.create-post-container .submit-button {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #28a745; /* Green for "Post" */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 25px; /* Space above the button */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.create-post-container .submit-button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.create-post-container .submit-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Message styling for success/error */
+.create-post-container #postMessage {
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1em;
+    text-align: center;
+    visibility: hidden; /* Hidden by default, shown by JS */
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.create-post-container #postMessage.success-message,
+.create-post-container #postMessage.error-message {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Responsive adjustments for the create post page */
+@media (max-width: 768px) {
+    .create-post-container {
+        margin: 20px;
+        padding: 20px;
+    }
+    .create-post-container h2 {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 500px) {
+    .create-post-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    .create-post-container textarea#postContent {
+        width: calc(100% - 20px); /* Adjust padding for smaller screens */
+        padding: 10px;
+    }
+    .create-post-container .submit-button {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+}
+
+/* --- Styles for Settings Page (add these to client/style.css) --- */
+
+.settings-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.08);
+    max-width: 800px; /* Max width for settings content */
+    margin: 30px auto; /* Center the settings container */
+    text-align: center; /* Center main headings and sections */
+}
+
+.settings-container h2 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+.settings-container h3 {
+    color: #555;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Specific styling for the form within settings */
+.settings-container form {
+    background-color: #fbfbfb; /* Slightly different background for form section */
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.03); /* Subtle inner shadow */
+    margin-bottom: 30px;
+    text-align: left; /* Align form elements to the left */
+}
+
+.settings-container .form-group {
+    margin-bottom: 18px;
+}
+
+.settings-container .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #444;
+    font-size: 1em;
+}
+
+.settings-container input[type="text"],
+.settings-container textarea {
+    width: calc(100% - 24px); /* Full width minus padding */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.settings-container input[type="text"]:focus,
+.settings-container textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.settings-container textarea {
+    resize: vertical;
+    min-height: 80px;
+    max-height: 200px;
+}
+
+
+/* Profile picture preview within settings */
+#profilePicPreview {
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: contain;
+    margin: 15px auto 25px auto; /* Center with more vertical margin */
+    border: 4px solid #007bff; /* Highlight with primary color border */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* File input for profile picture */
+.settings-container input[type="file"] {
+    width: 100%;
+    padding: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #555;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.settings-container input[type="file"]::-webkit-file-upload-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.settings-container input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Submit button for profile update (reusing .submit-button) */
+.settings-container .submit-button {
+    margin-top: 25px;
+    width: auto; /* Let button size itself, not full width */
+    padding: 12px 30px; /* Adjust padding */
+    font-size: 1.05em;
+    display: block; /* Make it a block to use margin auto for centering */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Horizontal Rule Styling specific to settings */
+.settings-container hr {
+    border: 0;
+    height: 1px;
+    background-color: #e0e0e0; /* Slightly darker than global hr for contrast */
+    margin: 40px 0; /* More vertical space */
+}
+
+/* Action buttons (like Logout, Change Password) */
+.settings-container .action-button {
+    /* Inherits from existing .action-button but can be overridden */
+    margin-bottom: 10px; /* Space between multiple buttons if stacked */
+    width: auto;
+    padding: 12px 25px;
+    font-size: 1.05em;
+    display: inline-block; /* Keep them inline-block for horizontal alignment */
+}
+
+/* Specific style for the logout button */
+.settings-container .logout-button {
+    background-color: #dc3545; /* Red for destructive action */
+}
+
+.settings-container .logout-button:hover {
+    background-color: #c82333;
+}
+
+/* Message styling for profile updates/logout */
+.settings-container .message {
+    margin-top: 15px;
+    font-size: 0.95em;
+}
+
+/* Responsive adjustments for the settings page */
+@media (max-width: 768px) {
+    .settings-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .settings-container h2 {
+        font-size: 2em;
+    }
+
+    .settings-container h3 {
+        font-size: 1.6em;
+    }
+
+    .settings-container form {
+        padding: 15px;
+    }
+
+    .settings-container input[type="text"],
+    .settings-container textarea {
+        width: calc(100% - 20px); /* Adjust padding for smaller screens */
+        padding: 10px;
+    }
+
+    #profilePicPreview {
+        width: 120px;
+        height: 120px;
+    }
+
+    .settings-container .submit-button,
+    .settings-container .action-button {
+        padding: 10px 20px;
+        font-size: 1em;
+        width: 100%; /* Make buttons full width on small screens */
+        margin-left: 0;
+        margin-right: 0;
+        display: block;
+    }
+}
+
+@media (max-width: 500px) {
+    .settings-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    .settings-container h2 {
+        font-size: 1.8em;
+    }
+    .settings-container h3 {
+        font-size: 1.4em;
+    }
+}
+
+/* --- Profile Stats Section --- */
+.profile-stats {
+    display: flex;
+    justify-content: space-around; /* Distributes items evenly */
+    align-items: center;
+    padding: 20px 0;
+    margin: 20px 0; /* Space above and below */
+    border-top: 1px solid #eee; /* Light separator */
+    border-bottom: 1px solid #eee; /* Light separator */
+    background-color: #f9f9f9; /* Slightly different background */
+    border-radius: 8px;
+}
+
+.stat-item {
+    text-align: center;
+    flex-grow: 1; /* Allows items to take equal space */
+    padding: 0 10px; /* Internal padding */
+}
+
+.stat-value {
+    display: block; /* Make number appear on its own line */
+    font-size: 1.5em; /* Larger font for the count */
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    display: block; /* Make label appear on its own line */
+    font-size: 0.9em;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Optional: Add a separator between stat items if desired */
+.stat-item:not(:last-child) {
+    border-right: 1px solid #ddd; /* Vertical separator */
+}
+
+/* Responsive adjustments for profile stats */
+@media (max-width: 600px) {
+    .profile-stats {
+        flex-direction: column; /* Stack vertically on small screens */
+        padding: 15px 0;
+    }
+
+    .stat-item {
+        width: 100%; /* Full width when stacked */
+        padding: 10px 0;
+        border-right: none; /* Remove vertical separator when stacked */
+        border-bottom: 1px solid #eee; /* Add horizontal separator instead */
+    }
+
+    .stat-item:last-child {
+        border-bottom: none; /* No separator for the last item */
+    }
+}
+
+/* client/css/style.css */
+
+.search-container {
+    display: flex;
+    margin: 20px;
+    gap: 10px;
+}
+
+.search-container input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.search-container button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.search-container button:hover {
+    background-color: #0056b3;
+}
+
+.search-results-container {
+    margin: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.search-result-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.search-result-item .user-info {
+    flex-grow: 1;
+}
+
+.search-result-item .username {
+    font-weight: bold;
+    color: #333;
+}
+
+.search-result-item .bio {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 2px;
+}
+
+.view-profile-button {
+    padding: 6px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.view-profile-button:hover {
+    background-color: #218838;
+}
+
+.search-message, .error-message {
+    text-align: center;
+    color: #555;
+    margin-top: 20px;
+}
+
+.error-message {
+    color: #dc3545;
 }

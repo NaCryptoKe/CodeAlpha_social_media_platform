@@ -1,8 +1,6 @@
-// app.js
+// server/app.js
 
 require('dotenv').config();
-
-//express module import
 const express = require(`express`);
 const cors = require(`cors`);
 const path = require(`path`);
@@ -12,39 +10,55 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
-// --- Serve Static Frontend Files ---
-// This makes all files in './client' available at the root '/'
-// e.g., ./login.html -> /login.html
-// e.g., ./client/js/auth.js -> /js/auth.js
+// Serve static frontend files first
 app.use(express.static(path.join(__dirname, '../client')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// --- Serve Uploaded Files ---
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // This path is relative to server.js's directory
-
-// --- API Status Endpoint (Keep it simple) ---
 app.get('/api/status', (req, res) => {
-	res.json({
-		status: `Online`,
-		message: `API is up and running`,
-		timestamp: new Date().toISOString()
-	});
+    res.json({
+        status: `Online`,
+        message: `API is up and running`,
+        timestamp: new Date().toISOString()
+    });
 });
 
-// --- Import & Use Routes ---
+// Import your route modules
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
-const postRoutes = require('./routes/posts')
+const postRoutes = require('./routes/posts');
+const commentRoutes = require('./routes/comment');
+const likeRoutes = require('./routes/likes'); // <<< ADD THIS LINE to import the likes router
 
-// --- Mounting Routes ---
+// --- TEMPORARY DIAGNOSTIC ROUTE ---
+// Place this BEFORE your app.use('/posts', ...) lines
+app.post('/posts/:postId/comment', (req, res, next) => {
+    console.log('--- Diagnostic Log ---');
+    console.log(`Method: ${req.method}`);
+    console.log(`Path: ${req.path}`);
+    console.log(`Original URL: ${req.originalUrl}`);
+    console.log('Req body:', req.body);
+    console.log('--- End Diagnostic Log ---');
+    next();
+});
+// --- END TEMPORARY DIAGNOSTIC ROUTE ---
+
+
+// Mount your main API routes
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
+app.use('/posts', commentRoutes);
+app.use('/posts', likeRoutes); // <<< ADD THIS LINE to mount the likes router under /posts
 
-// --- Setting root path to feed for logged in users ---
+// Set the root path for logged-in users
 app.get('/', (req, res) => {
-	console.log(`HI`)
-	res.sendFile(path.join(__dirname, '../client', 'feed.html'));
+    console.log(`HI`);
+    res.sendFile(path.join(__dirname, '../client/feed.html'));
+});
+
+// Catch-all for undefined routes
+app.use((req, res, next) => {
+    res.status(404).send('404 Not Found - Custom Catch-all from app.js');
 });
 
 module.exports = app;

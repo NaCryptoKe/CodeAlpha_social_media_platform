@@ -1,51 +1,23 @@
-// posts.js
-
-const express = require(`express`);
+// server/routes/posts.js
+const express = require('express');
 const router = express.Router();
 const postController = require('../controllers/postController');
 const authenticateToken = require('../middleware/authMiddleware');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const upload = require('../middleware/multerConfig');
 
-// --- Multer Storage Configuration ---
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const uploadPath = path.join(__dirname, '..','uploads', 'postImages');
-        fs.mkdir(uploadPath, {recursive: true }, (err) => {
-            if(err) {
-                console.error('Failed to create upload directory:', err);
-                cb(err);
-            } else {
-                cb(null, uploadPath);
-            }
-        });
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
-});
+// Route to get all posts (feed)
+router.get('/', authenticateToken, postController.getAllPosts);
 
-const upload = multer ({
-    storage: storage,
-    limits: {fileSize: 5 * 1024 * 1024},
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Only image files are allowed!'), false);
-        }
-    }
-});
+// Route to create a new post
+router.post('/', authenticateToken, upload.single('image'), postController.createPost);
 
-// --- Post API Routes ---
-// Create new post
-//router.post('/', authenticateToken, upload.single('image'), postController.createPost);
+// Route to get a specific post by ID
+router.get('/:id', authenticateToken, postController.getPostById);
 
-// Get all posts
-//router.get('/', postController.getAllposts)
+// Route to delete a post
+router.delete('/:id', authenticateToken, postController.deletePost);
 
-// Get Users posts
-router.get('/user/:userId', postController.getPostsByUserId);
+// Route to get posts by a specific user ID (for profile page)
+router.get('/user/:userId', authenticateToken, postController.getPostsByUserId); // <--- ADD THIS LINE
 
 module.exports = router;
